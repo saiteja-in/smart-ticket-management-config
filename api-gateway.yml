@@ -1,0 +1,48 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: false
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+              - PATCH
+              - OPTIONS
+            allowedHeaders: "*"
+            exposedHeaders:
+              - Authorization
+              - X-User-Id
+              - X-User-Roles
+            allowCredentials: false
+            maxAge: 3600
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+    fetch-registry: true
+    register-with-eureka: true
+  instance:
+    prefer-ip-address: true
+
+jwt:
+  secret: MySuperSecretKeyForJWTTokenGenerationAndVerificationMustBeAtLeast32CharactersLongForHS256Algorithm
+  expiration: 86400000
+
+logging:
+  level:
+    org.springframework.cloud.gateway: INFO
+    com.saiteja.apigateway: DEBUG
+
